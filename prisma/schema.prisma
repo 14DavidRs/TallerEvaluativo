@@ -1,11 +1,28 @@
 // prisma/schema.prisma
-
-// ... otras configuraciones
-
-datasource db {
-  provider = "sqlite"
-  // ¡Añade esta línea!
-  url      = env("DATABASE_URL") 
+generator client {
+  provider = "prisma-client-js"
 }
 
-// ... tus modelos
+datasource db {
+  provider = "sqlite" // O postgresql
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique // email único [cite: 70]
+  password  String   // password [cite: 70]
+  createdAt DateTime @default(now()) // createdAt [cite: 70]
+  tasks     Task[]
+}
+
+model Task {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String? // description opcional [cite: 71]
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
+  
+  userId Int
+  user   User @relation(fields: [userId], references: [id]) // relación con User [cite: 71]
+}

@@ -1,8 +1,13 @@
-require('dotenv').config();
-const express = require('express');
+import 'dotenv/config';
+import express from 'express';
 const app = express();
 
 app.use(express.json());
+
+// Rutas
+import tasksRoutes from './routes/tasks.routes.js';
+
+app.use('/tasks', tasksRoutes);
 
 app.get('/', (req, res) => {
   res.send('API running');
