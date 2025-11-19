@@ -1,0 +1,11 @@
+// prisma/schema.prisma
+
+// ... otras configuraciones
+
+datasource db {
+  provider = "sqlite"
+  // ¡Añade esta línea!
+  url      = env("DATABASE_URL") 
+}
+
+// ... tus modelos
